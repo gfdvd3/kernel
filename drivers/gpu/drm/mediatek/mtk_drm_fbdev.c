@@ -505,8 +505,8 @@ static int mtk_fbdev_probe(struct drm_fb_helper *helper,
 	drm_fb_helper_fill_var(info, helper, sizes->fb_width, sizes->fb_height);
 
 	dev->mode_config.fb_base = fb_base;
-	// not need to read and write for fbdev
-	info->screen_base = NULL;//mtk_gem->kvaddr;
+	// allow read and write for fbdev
+	info->screen_base = mtk_gem->kvaddr;
 	info->screen_size = 0;//size;
 	info->fix.smem_len = size;
 	info->fix.smem_start = fb_base;
