@@ -507,7 +507,8 @@ static int mtk_fbdev_probe(struct drm_fb_helper *helper,
 	dev->mode_config.fb_base = fb_base;
 	// allow read and write for fbdev
 	info->screen_base = mtk_gem->kvaddr;
-	info->screen_size = 0;//size;
+	//info->screen_size = 0;//size;
+	info->screen_size = size;
 	info->fix.smem_len = size;
 	info->fix.smem_start = fb_base;
 	debug_info = info;
