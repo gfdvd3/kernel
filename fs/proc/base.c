@@ -116,7 +116,9 @@ extern bool is_special_entry(struct dentry *dentry, const char* special_proc);
 
 #ifdef OPLUS_BUG_STABILITY
 extern size_t get_ion_heap_by_pid(pid_t pid);
+#ifdef CONFIG_MTK_GPU_SUPPORT
 extern int get_gl_mem_by_pid(pid_t pid);
+#endif
 #endif
 
 /* NOTE:
@@ -428,7 +430,9 @@ static ssize_t proc_pid_real_phymemory_read(struct file *file, char __user *buf,
 	tsk = tsk->group_leader;
 	get_task_struct(tsk);
 	ion = get_ion_heap_by_pid(tsk->pid);
+#ifdef CONFIG_MTK_GPU_SUPPORT
 	gpu = get_gl_mem_by_pid(tsk->pid);
+#endif
 
 	p = find_lock_task_mm(tsk);
 	if (p) {
