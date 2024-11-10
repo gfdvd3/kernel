@@ -331,10 +331,11 @@ static void tp_touch_down(struct touchpanel_data *ts, struct point_info points, 
                     input_report_abs(ts->input_dev, ABS_MT_TOUCH_MAJOR, SMART_GESTURE_LOW_VALUE);
                 }
             }
-
+/*
             if (ts->pressure_report_support) {
                 input_report_abs(ts->input_dev, ABS_MT_PRESSURE, points.touch_major);   //add for fixing gripview tap no function issue
             }
+	    */
         }
         if(!CHK_BIT(ts->irq_slot, (1 << id))) {
             TPD_DETAIL("first touch point id %d [%4d %4d %4d %4d %4d %4d %4d]\n", id, points.x, points.y, points.z,
@@ -983,10 +984,12 @@ static void tp_touch_handle(struct touchpanel_data *ts)
 #ifdef TYPE_B_PROTOCOL
             else {
                 input_mt_slot(ts->input_dev, i);
+		    /*
                 if (ts->kernel_grip_support && ts->grip_info && ts->grip_info->eli_reject_status[i]
                     && !(ts->grip_info->grip_disable_level & (1 << GRIP_DISABLE_UP2CANCEL))) {
                     input_report_abs(ts->input_dev, ABS_MT_PRESSURE, UP2CANCEL_PRESSURE_VALUE);
                 }
+		    */
                 input_mt_report_slot_state(ts->input_dev, MT_TOOL_FINGER, 0);
             }
 #endif
@@ -6350,10 +6353,10 @@ static int init_input_device(struct touchpanel_data *ts)
     set_bit(EV_ABS, ts->input_dev->evbit);
     set_bit(EV_KEY, ts->input_dev->evbit);
     set_bit(ABS_MT_TOUCH_MAJOR, ts->input_dev->absbit);
-    set_bit(ABS_MT_WIDTH_MAJOR, ts->input_dev->absbit);
+//    set_bit(ABS_MT_WIDTH_MAJOR, ts->input_dev->absbit);
     set_bit(ABS_MT_POSITION_X, ts->input_dev->absbit);
     set_bit(ABS_MT_POSITION_Y, ts->input_dev->absbit);
-    set_bit(ABS_MT_PRESSURE, ts->input_dev->absbit);
+//   set_bit(ABS_MT_PRESSURE, ts->input_dev->absbit);
     set_bit(INPUT_PROP_DIRECT, ts->input_dev->propbit);
     set_bit(BTN_TOUCH, ts->input_dev->keybit);
     if (ts->black_gesture_support) {
@@ -6427,7 +6430,7 @@ static int init_input_device(struct touchpanel_data *ts)
 	if(ts->pen_support) {
 		input_set_abs_params(ts->pen_input_dev, ABS_X, 0, ts->pen_config.max_x - 1, 0, 0);
 		input_set_abs_params(ts->pen_input_dev, ABS_Y, 0, ts->pen_config.max_y - 1, 0, 0);
-		input_set_abs_params(ts->pen_input_dev, ABS_PRESSURE, 0, ts->pen_config.max_pressure - 1, 0, 0);
+		//input_set_abs_params(ts->pen_input_dev, ABS_PRESSURE, 0, ts->pen_config.max_pressure - 1, 0, 0);
 		input_set_abs_params(ts->pen_input_dev, ABS_DISTANCE, 0, 1, 0, 0);
 		input_set_abs_params(ts->pen_input_dev, ABS_TILT_X, -(ts->pen_config.tilt_x_max), ts->pen_config.tilt_x_max, 0, 0);
 		input_set_abs_params(ts->pen_input_dev, ABS_TILT_Y, -(ts->pen_config.tilt_y_max), ts->pen_config.tilt_y_max, 0, 0);
