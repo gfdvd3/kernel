@@ -20,7 +20,7 @@ OPPO/Realme  (安卓12 4.14.186机型)  PostmarketOS-Kernel-下游通用内核
 | Memory                  | 6/8 GB RAM                                                     |
 | Shipped Android version | Android 12
 |                         |
-| Drive                   |
+| Drive                   |  OK/Fail
 |  USB                    |  OK
 |  Display                |  Fail
 |  Touchpanel             |  OK
